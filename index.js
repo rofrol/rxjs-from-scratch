@@ -53,10 +53,6 @@ const observer = {
 };
 
 arrayObservable
-  .map(function (x) {
-    return x / 10;
-  })
-  .filter(function (x) {
-    return x !== 2;
-  })
+  .map((x) => x / 10)
+  .filter((x) => x !== 2)
   .subscribe(observer);
