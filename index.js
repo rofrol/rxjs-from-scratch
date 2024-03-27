@@ -1,16 +1,19 @@
 "use strict";
 
 function map(transformFn) {
-  const observable = this;
-  return createObservable(function subscribe(observer) {
-    observable.subscribe({
-      ...observer,
-      next: (x) => {
-        const y = transformFn(x);
-        observer.next(y);
-      },
-    });
-  });
+  const parent = this;
+  return {
+    ...parent,
+    subscribe(observer) {
+      parent.subscribe({
+        ...observer,
+        next(x) {
+          const y = transformFn(x);
+          observer.next(y);
+        },
+      });
+    },
+  };
 }
 
 function filter(conditionFn) {
@@ -18,7 +21,7 @@ function filter(conditionFn) {
   return createObservable(function subscribe(observer) {
     observable.subscribe({
       ...observer,
-      next: (x) => {
+      next(x) {
         if (conditionFn(x)) {
           observer.next(x);
         }
