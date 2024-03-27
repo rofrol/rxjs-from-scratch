@@ -39,13 +39,13 @@ const arrayObservable = createObservable(function subscribe(observer) {
 });
 
 const observer = {
-  next: (data) => {
+  next(data) {
     console.log(data);
   },
-  error: (err) => {
+  error(err) {
     console.error(err);
   },
-  complete: () => {
+  complete() {
     console.log("done");
   },
 };
