@@ -8,8 +8,7 @@ function map(transformFn) {
       observable.subscribe({
         ...observer,
         next(x) {
-          const y = transformFn(x);
-          observer.next(y);
+          observer.next(transformFn(x));
         },
       });
     },
