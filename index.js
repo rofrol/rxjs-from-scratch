@@ -5,7 +5,7 @@ function map(transformFn) {
   const outputObservable = createObservable(function subscribe(outputObserver) {
     inputObservable.subscribe({
       ...outputObserver,
-      next: function (x) {
+      next: (x) => {
         const y = transformFn(x);
         outputObserver.next(y);
       },
@@ -19,7 +19,7 @@ function filter(conditionFn) {
   const outputObservable = createObservable(function subscribe(outputObserver) {
     inputObservable.subscribe({
       ...outputObserver,
-      next: function (x) {
+      next: (x) => {
         if (conditionFn(x)) {
           outputObserver.next(x);
         }
