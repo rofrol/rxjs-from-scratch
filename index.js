@@ -2,7 +2,7 @@
 
 function map(transformFn) {
   const inputObservable = this;
-  const outputObservable = createObservable(function subscribe(outputObserver) {
+  return createObservable(function subscribe(outputObserver) {
     inputObservable.subscribe({
       ...outputObserver,
       next: (x) => {
@@ -11,12 +11,11 @@ function map(transformFn) {
       },
     });
   });
-  return outputObservable;
 }
 
 function filter(conditionFn) {
   const inputObservable = this;
-  const outputObservable = createObservable(function subscribe(outputObserver) {
+  return createObservable(function subscribe(outputObserver) {
     inputObservable.subscribe({
       ...outputObserver,
       next: (x) => {
@@ -26,7 +25,6 @@ function filter(conditionFn) {
       },
     });
   });
-  return outputObservable;
 }
 
 const createObservable = (subscribe) => ({
