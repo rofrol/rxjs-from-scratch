@@ -8,6 +8,7 @@ function map(transformFn) {
       observable.subscribe({
         ...observer,
         next(x) {
+          console.log("x", x);
           observer.next(transformFn(x));
         },
       });
@@ -17,28 +18,29 @@ function map(transformFn) {
 
 function filter(conditionFn) {
   const observable = this;
-  return createObservable(function subscribe(observer) {
-    observable.subscribe({
-      ...observer,
-      next(x) {
-        if (conditionFn(x)) {
-          observer.next(x);
-        }
-      },
-    });
-  });
+  return {
+    ...observable,
+    subscribe(observer) {
+      observable.subscribe({
+        ...observer,
+        next(x) {
+          if (conditionFn(x)) {
+            observer.next(x);
+          }
+        },
+      });
+    },
+  };
 }
 
-const createObservable = (subscribe) => ({
-  subscribe,
+const arrayObservable = {
   map,
   filter,
-});
-
-const arrayObservable = createObservable(function subscribe(observer) {
-  [10, 20, 30].forEach(observer.next);
-  observer.complete();
-});
+  subscribe(observer) {
+    [10, 20, 30].forEach(observer.next);
+    observer.complete();
+  },
+};
 
 const observer = {
   next(data) {
