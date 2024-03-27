@@ -1,26 +1,26 @@
 "use strict";
 
 function map(transformFn) {
-  const inputObservable = this;
-  return createObservable(function subscribe(outputObserver) {
-    inputObservable.subscribe({
-      ...outputObserver,
+  const observable = this;
+  return createObservable(function subscribe(observer) {
+    observable.subscribe({
+      ...observer,
       next: (x) => {
         const y = transformFn(x);
-        outputObserver.next(y);
+        observer.next(y);
       },
     });
   });
 }
 
 function filter(conditionFn) {
-  const inputObservable = this;
-  return createObservable(function subscribe(outputObserver) {
-    inputObservable.subscribe({
-      ...outputObserver,
+  const observable = this;
+  return createObservable(function subscribe(observer) {
+    observable.subscribe({
+      ...observer,
       next: (x) => {
         if (conditionFn(x)) {
-          outputObserver.next(x);
+          observer.next(x);
         }
       },
     });
