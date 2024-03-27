@@ -29,13 +29,11 @@ function filter(conditionFn) {
   return outputObservable;
 }
 
-function createObservable(subscribe) {
-  return {
-    subscribe: subscribe,
-    map: map,
-    filter: filter,
-  };
-}
+const createObservable = (subscribe) => ({
+  subscribe: subscribe,
+  map: map,
+  filter: filter,
+});
 
 const arrayObservable = createObservable(function subscribe(observer) {
   [10, 20, 30].forEach(observer.next);
@@ -43,13 +41,13 @@ const arrayObservable = createObservable(function subscribe(observer) {
 });
 
 const observer = {
-  next: function nextCallback(data) {
+  next: (data) => {
     console.log(data);
   },
-  error: function errorCallback(err) {
+  error: (err) => {
     console.error(err);
   },
-  complete: function completeCallback() {
+  complete: () => {
     console.log("done");
   },
 };
