@@ -30,9 +30,9 @@ function filter(conditionFn) {
 }
 
 const createObservable = (subscribe) => ({
-  subscribe: subscribe,
-  map: map,
-  filter: filter,
+  subscribe,
+  map,
+  filter,
 });
 
 const arrayObservable = createObservable(function subscribe(observer) {
