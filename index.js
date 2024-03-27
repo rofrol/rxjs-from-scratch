@@ -1,11 +1,11 @@
 "use strict";
 
 function map(transformFn) {
-  const parent = this;
+  const observable = this;
   return {
-    ...parent,
+    ...observable,
     subscribe(observer) {
-      parent.subscribe({
+      observable.subscribe({
         ...observer,
         next(x) {
           const y = transformFn(x);
