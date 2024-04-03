@@ -1,5 +1,3 @@
-"use strict";
-
 function map(transformFn) {
   const observable = this;
   return {
